@@ -8,37 +8,40 @@
 			height: 50px;
 			display: inline-block;
 			margin: 10px;
-			background-color: #E6E6FA; /* lavender */
+			background-color: #E6E6FA; /*lavender */
 			cursor: pointer;
 		}
 	</style>
 </head>
 <body>
-	<div class="square" id="square1"></div>
-	<div class="square" id="square2"></div>
-	<div class="square" id="square3"></div>
+	<div class="square" id="square1" ></div>
+	<div class="square" id="square2" ></div>
+	<div class="square" id="square3" ></div>
 
-	<script>
-		// Select all squares
-		const squares = document.querySelectorAll(".square");
+	<script >
+		const boxes = document.querySelectorAll(".square");
 
-		squares.forEach((square) => {
-		  square.addEventListener("mouseenter", () => {
-		    // When hovered, set other squares to Coffee
-		    squares.forEach((other) => {
-		      if (other !== square) {
-		        other.style.backgroundColor = "#6F4E37"; // Coffee
-		      }
-		    });
-		  });
+    for (let box of boxes) {
+      box.addEventListener("mouseover", (e) => addBgColor(e));
+      box.addEventListener("mouseout", () => resetColors());
+    }
 
-		  square.addEventListener("mouseleave", () => {
-		    // Reset all to Lavender
-		    squares.forEach((s) => {
-		      s.style.backgroundColor = "#E6E6FA"; // Lavender
-		    });
-		  });
-		});
+    function addBgColor(e) {
+      const selectedBoxId = e.target.id;
+      for (let b of boxes) {
+        if (b.id !== selectedBoxId) {
+          b.style.backgroundColor = "#6F4E37"; // Coffee for others
+        } else {
+          b.style.backgroundColor = "#E6E6FA"; // Keep hovered Lavender
+        }
+      }
+    }
+
+    function resetColors() {
+      for (let b of boxes) {
+        b.style.backgroundColor = "#E6E6FA"; // Reset all to Lavender
+      }
+    }
 	</script>
 </body>
 </html>
